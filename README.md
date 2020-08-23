@@ -4,7 +4,7 @@
 
 ## Presidential Election
 *Single output classification problem*
-- file2.py
+- election.csv *: Presidential election results with economic factors*
 
 ## Stock Prices
 *Multiple output regression problem*
