@@ -1,11 +1,11 @@
 ## Philadelphia Crimes 
 *Multiple output regression problem*
 - crimes.csv *: Number of crimes per week in 3 parts of Philadelphia*
-- crime_features.csv *: Generates features and selects features*
-- crime_timeLag.csv *: Creates lagged outputs as new features*
-- crime_holt.csv *: Builds and tests Holt-Winter's models*
-- crime_lasso.csv *: Builds and tests Lasso Regression models*
-- crime_forest.csv *: Builds and tests Random Forest models*
+- crime_features.py *: Generates features and selects features*
+- crime_timeLag.py *: Creates lagged outputs as new features*
+- crime_holt.py *: Builds and tests Holt-Winter's models*
+- crime_lasso.py *: Builds and tests Lasso Regression models*
+- crime_forest.py *: Builds and tests Random Forest models*
 
 ## Presidential Election
 *Single output classification problem*
