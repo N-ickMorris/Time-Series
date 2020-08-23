@@ -1,6 +1,6 @@
 ## Philadelphia Crimes 
 *Single output regression problem*
-- weekly crime.csv *: The data on number of crimes per week*
+- weekly crime.csv *: Number of crimes per week in 3 parts of Philadelphia*
 
 ## Presidential Election
 *Single output classification problem*
@@ -8,4 +8,4 @@
 
 ## Stock Prices
 *Multiple output regression problem*
-- stocks.py
+- stocks.py *: Daily stock prices for Apple, Amazon, and Dominos and economic factors*
