@@ -1,6 +1,6 @@
 ## Philadelphia Crimes 
 *Multiple output regression problem*
-- weekly crime.csv *: Number of crimes per week in 3 parts of Philadelphia*
+- crimes.csv *: Number of crimes per week in 3 parts of Philadelphia*
 
 ## Presidential Election
 *Single output classification problem*
