@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Lasso regression model on data
+Trains and tests a Tensorflow Neural Network model on data
 
 @author: Nick
 """
@@ -8,8 +8,8 @@ Trains and tests a Lasso regression model on data
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LogisticRegressionCV, LassoCV
-from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
+import keras
+from keras import layers, optimizers, regularizers
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 from plots import matrix_plot, parity_plot, series_plot
 
@@ -30,33 +30,59 @@ outputs = Y.shape[1]
 
 # separate the data into training and testing
 if TIME_SERIES:
-    test_idx = X.index.values[-int(X.shape[0] / 3):]
+    test_idx = X.index.values[-int(X.shape[0] / 5):]
 else:
     np.random.seed(1)
-    test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 3), replace=False)
+    test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
+
+# set up the network
+def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalty=0, classifier=False):
+    # set up the output layer activation and loss metric
+    if classifier:
+        activation = "sigmoid"
+        loss = "binary_crossentropy"
+    else:
+        activation = "linear"
+        loss = "mean_squared_error"
+
+    # build the network
+    inputs = keras.Input(shape=(features,))
+    hidden = layers.Dense(units=layer[0], activation="relu",
+                          kernel_regularizer=regularizers.l1(l1_penalty))(inputs)
+    for j in range(1, len(layer)):
+        dense = layers.Dense(units=layer[j], activation="relu",
+                             kernel_regularizer=regularizers.l1(l1_penalty))
+        hidden = dense(hidden)
+    outputs = layers.Dense(units=targets, activation=activation)(hidden)
+
+    # compile the model
+    model = keras.Model(inputs=inputs, outputs=outputs)
+    model.compile(loss=[loss for j in layer],
+                  optimizer=optimizers.Adam(lr=learning_rate))
+    return model
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(LogisticRegressionCV(penalty="l1", solver="saga",
-                                                       Cs=20, cv=3, tol=1e-4,
-                                                       max_iter=500,
-                                                       class_weight="balanced",
-                                                       random_state=42,
-                                                       n_jobs=1))
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
+                       learning_rate=0.001, l1_penalty=0, classifier=True)
 else:
-    model = MultiOutputRegressor(LassoCV(eps=1e-9, n_alphas=20, cv=3,
-                                         tol=1e-4, max_iter=500, random_state=42,
-                                         n_jobs=1))
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
+                       learning_rate=0.001, l1_penalty=0, classifier=False)
 
 # train the model
-model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])
+model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :], epochs=100, batch_size=16)
 
 # In[2]: Collect the predictions
 
 # predict training and testing data
 train_predict = pd.DataFrame(model.predict(X.iloc[train_idx, :]), columns=Y.columns)
 test_predict = pd.DataFrame(model.predict(X.iloc[test_idx, :]), columns=Y.columns)
+
+# convert probabilities into predictions
+if classifier:
+    train_predict = (train_predict > 0.5) + 0
+    test_predict = (test_predict > 0.5) + 0
 
 # reshape all of the predictions into a single table
 predictions = pd.DataFrame()
@@ -89,7 +115,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
-# predictions.to_csv("lasso predictions.csv", index=False)
+# predictions.to_csv("keras predictions.csv", index=False)
 
 # In[3]: Visualize the predictions
 

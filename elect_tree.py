@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Trains and tests a Lasso regression model on data
+Trains and tests a Decision Tree model on data
 
 @author: Nick
 """
@@ -8,7 +8,7 @@ Trains and tests a Lasso regression model on data
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LogisticRegressionCV, LassoCV
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.metrics import confusion_matrix, accuracy_score, r2_score
 from plots import matrix_plot, parity_plot, series_plot
@@ -38,16 +38,15 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    model = MultiOutputClassifier(LogisticRegressionCV(penalty="l1", solver="saga",
-                                                       Cs=20, cv=3, tol=1e-4,
-                                                       max_iter=500,
-                                                       class_weight="balanced",
-                                                       random_state=42,
-                                                       n_jobs=1))
+    model = MultiOutputClassifier(DecisionTreeClassifier(max_depth=10,
+                                                         min_samples_leaf=3,
+                                                         max_features="sqrt",
+                                                         random_state=42))
 else:
-    model = MultiOutputRegressor(LassoCV(eps=1e-9, n_alphas=20, cv=3,
-                                         tol=1e-4, max_iter=500, random_state=42,
-                                         n_jobs=1))
+    model = MultiOutputRegressor(DecisionTreeRegressor(max_depth=10,
+                                                       min_samples_leaf=3,
+                                                       max_features="sqrt",
+                                                       random_state=42))
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :])
@@ -89,7 +88,7 @@ for j in range(outputs):
                                                             len(test_idx))})],
                             axis="index")
 predictions = predictions.reset_index(drop=True)
-# predictions.to_csv("lasso predictions.csv", index=False)
+# predictions.to_csv("tree predictions.csv", index=False)
 
 # In[3]: Visualize the predictions
 
