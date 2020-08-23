@@ -17,6 +17,9 @@ from sklearn.feature_selection import RFE
 # read in the data
 data = pd.read_csv("crimes.csv")
 
+# fill in missing values
+data = data.fillna(method="bfill").fillna(method="ffill")
+
 # separate X and Y
 X = data.drop(columns=["YEAR.WEEK", "North CRIMES", "West CRIMES", "Central CRIMES"]).copy()
 Y = data.drop(columns=X.columns).drop(columns="YEAR.WEEK").copy()
