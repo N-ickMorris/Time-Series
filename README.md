@@ -8,4 +8,4 @@
 
 ## Stock Prices
 *Multiple output regression problem*
-- file3.py
+- stocks.py
