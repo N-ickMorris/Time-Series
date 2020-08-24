@@ -36,8 +36,14 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 	return agg
 
 # read in the data
-X = pd.read_csv("X elect.csv")
-Y = pd.read_csv("Y elect.csv")
+data = pd.read_csv("election.csv")
+
+# fill in missing values
+data = data.fillna(method="bfill").fillna(method="ffill")
+
+# separate inputs (X) and outputs (Y)
+X = data.drop(columns=["Year", " DemocratWon"]).copy()
+Y = data.drop(columns=X.columns).drop(columns="Year").copy()
 
 # shift Y by LAGS
 outputs = Y.shape[1]
@@ -47,8 +53,7 @@ Y = series_to_supervised(Y, n_in=LAGS, n_out=1)
 X = series_to_supervised(X, n_in=LAGS, n_out=0)
 
 # add lags to features and remove the first LAGS rows
-X = pd.concat([X.iloc[(LAGS - 1):,:], 
-               Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
+X = pd.concat([X, Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
 Y = Y.iloc[:,-outputs:].reset_index(drop=True)
 
 # export the data

@@ -40,12 +40,12 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 if classifier:
     model = MultiOutputClassifier(KNeighborsClassifier(n_neighbors=5,
                                                        weights="uniform",
-                                                       leaf_size=30,
+                                                       leaf_size=10,
                                                        n_jobs=1))
 else:
     model = MultiOutputRegressor(KNeighborsRegressor(n_neighbors=5,
                                                      weights="uniform",
-                                                     leaf_size=30,
+                                                     leaf_size=10,
                                                      n_jobs=1))
 
 # train the model

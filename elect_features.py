@@ -15,14 +15,8 @@ from sklearn.feature_selection import RFE
 
 
 # read in the data
-data = pd.read_csv("election.csv")
-
-# fill in missing values
-data = data.fillna(method="bfill").fillna(method="ffill")
-
-# separate inputs (X) and outputs (Y)
-X = data.drop(columns=["Year", " DemocratWon"]).copy()
-Y = data.drop(columns=X.columns).drop(columns="Year").copy()
+X = pd.read_csv("X elect.csv")
+Y = pd.read_csv("Y elect.csv")
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
@@ -54,6 +48,46 @@ else:
                                          max_features="sqrt",
                                          random_state=42,
                                          n_jobs=1), step=0.05, verbose=1)
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
 
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])

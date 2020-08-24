@@ -64,10 +64,10 @@ def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalt
 
 # set up the model
 if classifier:
-    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[8, 8],
                        learning_rate=0.001, l1_penalty=0, classifier=True)
 else:
-    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[32, 32],
+    model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[8, 8],
                        learning_rate=0.001, l1_penalty=0, classifier=False)
 
 # train the model

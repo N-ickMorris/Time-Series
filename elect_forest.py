@@ -39,15 +39,15 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 # set up the model
 if classifier:
     model = MultiOutputClassifier(RandomForestClassifier(n_estimators=100,
-                                                         max_depth=10,
-                                                         min_samples_leaf=3,
+                                                         max_depth=14,
+                                                         min_samples_leaf=1,
                                                          max_features="sqrt",
                                                          random_state=42,
                                                          n_jobs=1))
 else:
     model = MultiOutputRegressor(RandomForestRegressor(n_estimators=100,
-                                                       max_depth=10,
-                                                       min_samples_leaf=3,
+                                                       max_depth=14,
+                                                       min_samples_leaf=1,
                                                        max_features="sqrt",
                                                        random_state=42,
                                                        n_jobs=1))
