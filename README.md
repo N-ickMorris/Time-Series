@@ -10,8 +10,8 @@
 ## Presidential Election
 *Single output classification problem*
 - election.csv *: Presidential election results with economic factors*
-- elect_features.py *: Generates features and selects features*
 - elect_timeLag.py *: Creates lagged outputs as new features*
+- elect_features.py *: Generates features and selects features*
 - elect_knn.py *: Builds and tests k-Nearest Neighbor models*
 - elect_forest.py *: Builds and tests Random Forest models*
 - elect_keras.py *: Builds and tests Neural Network models*
