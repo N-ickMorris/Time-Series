@@ -65,6 +65,126 @@ for j in Y.columns:
 keep = np.where(keep_idx > 0)[0]
 X = X.iloc[:, keep]
 
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
+# determine which features to keep
+keep_idx = np.repeat(0, X.shape[1])
+for j in Y.columns:
+    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    keep_j = selector.support_ * 1
+    keep_idx = keep_idx + keep_j
+    print("--")
+keep = np.where(keep_idx > 0)[0]
+X = X.iloc[:, keep]
+
 # export the data
 X.to_csv("X crimes.csv", index=False)
 Y.to_csv("Y crimes.csv", index=False)

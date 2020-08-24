@@ -50,59 +50,19 @@ train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the model
 if classifier:
-    selector = RFE(RandomForestClassifier(n_estimators=50,
+    selector = RFE(RandomForestClassifier(n_estimators=25,
                                           max_depth=10,
                                           min_samples_leaf=1,
                                           max_features="sqrt",
                                           random_state=42,
                                           n_jobs=1), step=0.05, verbose=1)
 else:
-    selector = RFE(RandomForestRegressor(n_estimators=50,
+    selector = RFE(RandomForestRegressor(n_estimators=25,
                                          max_depth=10,
                                          min_samples_leaf=1,
                                          max_features="sqrt",
                                          random_state=42,
                                          n_jobs=1), step=0.05, verbose=1)
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
 
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])

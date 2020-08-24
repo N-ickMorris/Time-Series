@@ -35,15 +35,10 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 		agg.dropna(inplace=True)
 	return agg
 
+
 # read in the data
-data = pd.read_csv("election.csv")
-
-# fill in missing values
-data = data.fillna(method="bfill").fillna(method="ffill")
-
-# separate inputs (X) and outputs (Y)
-X = data.drop(columns=["Year", " DemocratWon"]).copy()
-Y = data.drop(columns=X.columns).drop(columns="Year").copy()
+X = pd.read_csv("X elect.csv")
+Y = pd.read_csv("Y elect.csv")
 
 # shift Y by LAGS
 outputs = Y.shape[1]

@@ -15,8 +15,14 @@ from sklearn.feature_selection import RFE
 
 
 # read in the data
-X = pd.read_csv("X elect.csv")
-Y = pd.read_csv("Y elect.csv")
+data = pd.read_csv("election.csv")
+
+# fill in missing values
+data = data.fillna(method="bfill").fillna(method="ffill")
+
+# separate inputs (X) and outputs (Y)
+X = data.drop(columns=["Year", " DemocratWon"]).copy()
+Y = data.drop(columns=X.columns).drop(columns="Year").copy()
 
 # determine if we are building a classifier model
 classifier = np.all(np.unique(Y.to_numpy()) == [0, 1])
