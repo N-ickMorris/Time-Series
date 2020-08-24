@@ -34,11 +34,6 @@ x_columns = X.columns
 X = pd.DataFrame(poly.fit_transform(X))
 X.columns = poly.get_feature_names(x_columns)
 
-# separate the data into training and testing
-np.random.seed(1)
-test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
-train_idx = np.array(list(set(X.index.values) - set(test_idx)))
-
 # set up the model
 if classifier:
     selector = RFE(RandomForestClassifier(n_estimators=50,
@@ -58,7 +53,7 @@ else:
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -68,7 +63,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -78,7 +73,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -88,7 +83,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -98,7 +93,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -108,7 +103,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")
@@ -118,47 +113,7 @@ X = X.iloc[:, keep]
 # determine which features to keep
 keep_idx = np.repeat(0, X.shape[1])
 for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
-    keep_j = selector.support_ * 1
-    keep_idx = keep_idx + keep_j
-    print("--")
-keep = np.where(keep_idx > 0)[0]
-X = X.iloc[:, keep]
-
-# determine which features to keep
-keep_idx = np.repeat(0, X.shape[1])
-for j in Y.columns:
-    selector.fit(X.iloc[train_idx, :], Y.loc[train_idx, j])
+    selector.fit(X, Y.loc[:, j])
     keep_j = selector.support_ * 1
     keep_idx = keep_idx + keep_j
     print("--")

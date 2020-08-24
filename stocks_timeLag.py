@@ -6,7 +6,6 @@ Creates lagged features for time series
 """
 
 
-import numpy as np
 import pandas as pd
 
 # how many lags to shift the data?
