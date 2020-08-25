@@ -21,6 +21,7 @@
 - stocks.py *: Daily stock prices for Apple, Amazon, and Dominos and economic factors*
 - stocks_features.py *: Generates features and selects features*
 - stocks_timeLag.py *: Creates lagged outputs as new features*
+- stocks_timeLag_week.py *: Creates lagged (by a week) outputs as new features*
 - stocks_holt.py *: Builds and tests Holt-Winter's models*
 - stocks_lasso.py *: Builds and tests Lasso Regression models*
 - stocks_bayes.py *: Builds and tests Bayesian models*
