@@ -43,6 +43,9 @@ x_columns = X.columns
 X = pd.DataFrame(poly.fit_transform(X))
 X.columns = poly.get_feature_names(x_columns)
 
+# drop any constant columns in X
+X = X.loc[:, (X != X.iloc[0]).any()]
+
 # separate the data into training and testing
 np.random.seed(1)
 test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
@@ -54,7 +57,7 @@ if classifier:
                                           max_depth=10,
                                           min_samples_leaf=1,
                                           max_features="sqrt",
-                                          random_state=42,
+                                          random_state=42, class_weight="balanced_subsample",
                                           n_jobs=1), step=0.05, verbose=1)
 else:
     selector = RFE(RandomForestRegressor(n_estimators=25,

@@ -8,8 +8,6 @@ Creates lagged features for time series
 
 import pandas as pd
 
-# how many lags to shift the data?
-LAGS = 1
 
 # convert series to supervised learning
 def series_to_supervised(data, n_in_low=0, n_in_up=1, n_out_low=0, n_out_up=1, dropnan=True):
@@ -55,6 +53,9 @@ X = series_to_supervised(X, n_in_low=6,
 # add lags to features and remove the first LAGS rows
 X = pd.concat([X, Y.iloc[:,:-outputs]], axis=1).reset_index(drop=True)
 Y = Y.iloc[:,-outputs:].reset_index(drop=True)
+
+# drop rows with missing values
+X = X.dropna(axis=0).reset_index(drop=True)
 
 # export the data
 X.to_csv("X stocks.csv", index=False)
