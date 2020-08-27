@@ -11,6 +11,7 @@
 ## Presidential Election
 *Single output classification problem*
 - election.csv *: Presidential election results with economic factors*
+- elect_plots.py *: Visualizations of important features*
 - elect_features.py *: Generates features and selects features*
 - elect_timeLag.py *: Creates lagged outputs as new features*
 - elect_knn.py *: Builds and tests k-Nearest Neighbor models*
