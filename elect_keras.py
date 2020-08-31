@@ -30,10 +30,10 @@ outputs = Y.shape[1]
 
 # separate the data into training and testing
 if TIME_SERIES:
-    test_idx = X.index.values[-int(X.shape[0] / 5):]
+    test_idx = X.index.values[-int(X.shape[0] / 12):]
 else:
     np.random.seed(1)
-    test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 5), replace=False)
+    test_idx = np.random.choice(a=X.index.values, size=int(X.shape[0] / 12), replace=False)
 train_idx = np.array(list(set(X.index.values) - set(test_idx)))
 
 # set up the network
@@ -65,10 +65,10 @@ def build_nnet(features, targets, layer=[32, 32], learning_rate=0.001, l1_penalt
 # set up the model
 if classifier:
     model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[8, 8],
-                       learning_rate=0.001, l1_penalty=0, classifier=True)
+                       learning_rate=0.005, l1_penalty=1e-3, classifier=True)
 else:
     model = build_nnet(features=X.shape[1], targets=Y.shape[1], layer=[8, 8],
-                       learning_rate=0.001, l1_penalty=0, classifier=False)
+                       learning_rate=0.005, l1_penalty=1e-3, classifier=False)
 
 # train the model
 model.fit(X.iloc[train_idx, :], Y.iloc[train_idx, :], epochs=100, batch_size=16)
@@ -162,3 +162,46 @@ else:
             # series plot
             series_plot(predict=data["Predict"], actual=data["Actual"], 
                         title=j + " - " + data_j + " - Forecast: ", save=save_plot)
+
+# In[4]: Predict the 2020 Election
+
+# collect the column names (X elect.csv)
+columns_2020 = ['RepublicanFraction Ohio(t-2)', 
+                'RepublicanFraction Alaska RepublicanFraction New Hampshire(t-2)', 
+                'RepublicanFraction Arizona RepublicanFraction Idaho(t-2)', 
+                'RepublicanFraction Arizona RepublicanFraction North Dakota(t-2)', 
+                'RepublicanFraction Washington RepublicanFraction Wyoming(t-2)', 
+                'RepublicanFraction Wisconsin RepublicanFraction Wyoming(t-2)', 
+                'RepublicanFraction Ohio(t-1)', 
+                'RepublicanFraction Alaska RepublicanFraction New Hampshire(t-1)', 
+                'RepublicanFraction Arizona RepublicanFraction Idaho(t-1)', 
+                'RepublicanFraction Arizona RepublicanFraction North Dakota(t-1)', 
+                'RepublicanFraction Washington RepublicanFraction Wyoming(t-1)', 
+                'RepublicanFraction Wisconsin RepublicanFraction Wyoming(t-1)', 
+                ' DemocratWon(t-3)', 
+                ' DemocratWon(t-2)', 
+                ' DemocratWon(t-1)']
+
+# collect the data (X elect features.csv, Y elect features.csv)
+data_2020 = [[
+0.484859432307505, 
+0.270334720629146, 
+0.362749645467386, 
+0.328287627398856, 
+0.301519715920963, 
+0.331157182714036,
+0.542676845771359, 
+0.29077791009483, 
+0.354461666649614, 
+0.362240324750926, 
+0.31200485463974, 
+0.381615292198692,
+1,
+1,
+0
+]]
+
+# predict the election
+df_2020 = pd.DataFrame(data=data_2020, columns=columns_2020, index=["2020"])
+predict_2020 = pd.DataFrame(model.predict(df_2020), columns=Y.columns, index=df_2020.index)
+print(predict_2020)
