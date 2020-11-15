@@ -1,9 +1,9 @@
 ## Feature Engineering
-https://www.machinelearningplus.com/time-series/time-series-analysis-python/
-https://docs.scipy.org/doc/scipy/reference/generated/scipy.fftpack.rfft.html
-https://machinelearningmastery.com/power-transform-time-series-forecast-data-python/
-differencing
-rolling stats on differencing
+- https://www.machinelearningplus.com/time-series/time-series-analysis-python/
+- https://docs.scipy.org/doc/scipy/reference/generated/scipy.fftpack.rfft.html
+- https://machinelearningmastery.com/power-transform-time-series-forecast-data-python/
+- differencing
+- rolling stats on differencing
 
 ## Philadelphia Crimes 
 *Multiple output regression problem*
