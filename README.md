@@ -1,3 +1,8 @@
+## Feature Engineering
+https://www.machinelearningplus.com/time-series/time-series-analysis-python/
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.fftpack.rfft.html
+
+
 ## Philadelphia Crimes 
 *Multiple output regression problem*
 - crimes.csv *: Number of crimes per week in 3 parts of Philadelphia*
